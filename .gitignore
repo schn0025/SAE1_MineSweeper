@@ -1,3 +1,7 @@
 *.swp
 *.tmp
 *~
+*.xml
+venv/
+*.iml
+.idea/
