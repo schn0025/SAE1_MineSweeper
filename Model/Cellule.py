@@ -20,14 +20,23 @@ def type_cellule(cell: dict) -> bool:
         and (0 <= cell[const.CONTENU] <= 8 or cell[const.CONTENU] == const.ID_MINE)
 
 
-def isContenuCorrect(elt: int) -> bool:
+def isContenuCorrect(cont: int) -> bool:
     """
     cette fonction verifie ci l'element dans la celule est corecte ou non
     :param elt: element contenu dans la celule
     :return bool: bool verifant la condition
     """
     rep = False
-    if type(elt) == int:
-        if (elt <= 8 and elt >= 0) or elt == const.ID_MINE:
+    if type(cont) == int:
+        if (cont <= 8 and cont >= 0) or cont == const.ID_MINE:
             rep = True
     return rep
+
+def construireCellule(cont: int= 0, visi: bool = False) -> dict:
+    if not isContenuCorrect(cont):
+        raise ValueError(f"construireCellule : le contenu {cont} n’est pas correct")
+
+    if type(visi) != bool:
+        raise TypeError( f"construireCellule : le second paramètre {type(visi)} n’est pas un booléen ")
+    cel = {const.CONTENU: cont, const.VISIBLE: visi}
+    return cel
