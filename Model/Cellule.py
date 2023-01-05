@@ -20,3 +20,14 @@ def type_cellule(cell: dict) -> bool:
         and (0 <= cell[const.CONTENU] <= 8 or cell[const.CONTENU] == const.ID_MINE)
 
 
+def isContenuCorrect(elt: int) -> bool:
+    """
+    cette fonction verifie ci l'element dans la celule est corecte ou non
+    :param elt: element contenu dans la celule
+    :return bool: bool verifant la condition
+    """
+    rep = False
+    if type(elt) == int:
+        if (elt <= 8 and elt >= 0) or elt == const.ID_MINE:
+            rep = True
+    return rep
