@@ -104,7 +104,9 @@ def isCoordonneeCorrect(grille: list, co: tuple)-> bool:
     if not type_grille_demineur(grille) or type(co) != tuple:
         raise TypeError("isCoordonneeCorrecte : un des paramètres n’est pas du bon type.")
     rep = False
-    if co[0] < getNbLignesGrilleDemineur(grille) and co[0] > 0 and co[1] < getNbColonnesGrilleDemineur(grille) and co[1] > 0:
+    ligne = getLigneCoordonnee(co)
+    col = getColonneCoordonnee(co)
+    if ligne < getNbLignesGrilleDemineur(grille) and ligne >= 0 and col < getNbColonnesGrilleDemineur(grille) and col >= 0:
         rep = True
     return rep
 
@@ -119,3 +121,56 @@ def getCelluleGrilleDemineur(grille: list,co:tuple) -> dict:
         raise TypeError(f"getCelluleGrilleDemineur : un des paramètres n’est pas du bon type.")
     cellule = grille[co[0]][co[1]]
     return cellule
+
+def getContenuGrilleDemineur(grille: list, co: tuple)-> int:
+    """
+    return le contenus de la cellule au coordonnée passer en paramètre
+    :param grille: grille du demineur
+    :param co: coordonnée recherche dans la grille
+    :return: le contenus de la cellule au coordonnée passer en paramètre
+    """
+    cellule = getCelluleGrilleDemineur(grille,co)
+    return getContenuCellule(cellule)
+
+def setContenuGrilleDemineur(grille: list, co: tuple, contenu)-> None:
+    """
+    modifie le contenu de la cellule au coordonnée passer en paramètre
+    :param grille: grille du demineur
+    :param co: coordonnée recherche dans la grille
+    :param contenu: le contenus que l'on doit remplacer
+    """
+    cellule = getCelluleGrilleDemineur(grille, co)
+    setContenuCellule(cellule,contenu)
+    return None
+
+def isVisibleGrilleDemineur(grille: list, co: tuple)-> bool:
+    """
+    indique ci la cellule au coordonnée passer en paramètre est visible ou non
+    :param grille: grille du demineur
+    :param co: coordonnée recherche dans la grille
+    """
+    cellule = getCelluleGrilleDemineur(grille, co)
+    return isVisibleCellule(cellule)
+
+def setVisibleGrilleDemineur(grille: list, co: tuple, visibili: bool) -> None:
+    """
+
+    :param grille: grille du demineur
+    :param co: coordonnée recherche dans la grille
+    :param visibili: visibilité de la celule
+    """
+    cellule = getCelluleGrilleDemineur(grille, co)
+    setVisibleCellule(cellule, visibili)
+    return None
+
+def contientMineGrilleDemineur(grille: list, co : tuple) -> bool:
+    """
+    detecte la presence d'une mine dans la cellule placer au coordonnée passer en paramètre
+    :param grille: grille du demineur
+    :param co: coordonnée recherche dans la grille
+    :return: True si il y a une bombe dans la cellule et false sinon
+    """
+    rep = False
+    if getContenuGrilleDemineur(grille,co) == const.ID_MINE:
+        rep = True
+    return rep

@@ -49,9 +49,9 @@ def construireCellule(cont: int= 0, visible: bool = False) -> dict:
 
 def getContenuCellule(dico: dict) ->int:
     """
-    renvoi le contenus de la cellule
+    renvoi le contenu de la cellule
     :param dico: un dico detaillent une cellule
-    :return: le contenus de la cellule
+    :return: le contenu de la cellule
     """
     if not type_cellule:
         raise TypeError(f"getContenuCellule : Le paramètre n’est pas une cellule")
