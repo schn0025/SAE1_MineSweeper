@@ -45,7 +45,7 @@ la coordonnée passée en paramètre
 def getColonneCoordonnee(co: tuple) -> int:
     """
     retourne le numéro de colonne contenu dans
-la coordonnée passée en paramètre
+    la coordonnée passée en paramètre
     :param co:coordonnée passer en paramètre
     :return: return la valeur de x
     """
