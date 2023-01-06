@@ -95,6 +95,12 @@ def getNbColonnesGrilleDemineur(grille: list)->int:
 
 
 def isCoordonneeCorrect(grille: list, co: tuple)-> bool:
+    """
+    recheche ci les coordonnée sont bien dans la grille
+    :param grille: grille du demineur
+    :param co: coordonnée recherche dans la grille
+    :return: True ci les coordonnée sont dans la grille false sinon
+    """
     if not type_grille_demineur(grille) or type(co) != tuple:
         raise TypeError("isCoordonneeCorrecte : un des paramètres n’est pas du bon type.")
     rep = False
@@ -103,6 +109,12 @@ def isCoordonneeCorrect(grille: list, co: tuple)-> bool:
     return rep
 
 def getCelluleGrilleDemineur(grille: list,co:tuple) -> dict:
+    """
+    cheche la cellule au coordonnée donnée et la renvoi
+    :param grille: grille: grille du demineur
+    :param co: coordonnée recherche dans la grille
+    :return: la cellule au coordonnée données
+    """
     if not type_grille_demineur(grille) and not isCoordonneeCorrect(grille,co) and type(co) != tuple:
         raise TypeError(f"getCelluleGrilleDemineur : un des paramètres n’est pas du bon type.")
     cellule = grille[co[0]][co[1]]
