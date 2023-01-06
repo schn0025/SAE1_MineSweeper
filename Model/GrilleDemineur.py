@@ -52,6 +52,12 @@ def type_grille_demineur(grille: list) -> bool:
     # return True
 
 def construireGrilleDemineur(nbLigne: int, nbCol: int) -> list:
+    """
+    prend un nombre de ligne et de collone en parametre et renvoi une grille pour le demineur
+    :param nbLigne: nombre de ligne voulu
+    :param nbCol: nombre de collone voulu
+    :return: la grille de dimension voulue
+    """
     if type(nbLigne) != int or type(nbCol) != int:
         raise TypeError(f"construireGrilleDemineur : Le nombre de lignes {nbLigne} ou de colonnes {nbCol} n’est pas un entier.")
     if nbLigne <= 0 or nbCol <= 0:
@@ -66,12 +72,22 @@ def construireGrilleDemineur(nbLigne: int, nbCol: int) -> list:
     return grille
 
 def getNbLignesGrilleDemineur(grille: list) -> int:
+    """
+    indique le nombre de ligne qui compose la grille
+    :param grille: grille de demineur
+    :return: nombre de ligne de la grille
+    """
     if not type_grille_demineur(grille):
         raise TypeError("getNbLignesGrilleDemineur : Le paramètre n’est pas une grille")
     nbLigne= len(grille)
     return nbLigne
 
 def getNbColonnesGrilleDemineur(grille: list)->int:
+    """
+    renvoi le nombre de collone de la grille
+    :param grille: grille de demineur
+    :return: le nombre de collone de la grille
+    """
     if not type_grille_demineur(grille):
         raise TypeError("getNbColonnesGrilleDemineur : Le paramètre n’est pas une grille")
     nbCol=len(grille[0])
