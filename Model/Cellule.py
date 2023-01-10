@@ -108,5 +108,18 @@ def contientMineCellule(dico: dict)->bool:
     return rep
 
 def isAnnotationCorrecte(annotation: str) -> bool:
+    """
+    verifie ci le parametre est corecte
+    :param annotation: annotation a verifier
+    :return: True ci l'annotation est corecte False sinon
+    """
     lstRep = [None, const.DOUTE, const.FLAG]
-    return  annotation in lstRep
+    return annotation in lstRep
+
+def getAnnotationCellule(cel: dict) -> str:
+    if not type_cellule(cel):
+        raise TypeError(f" getAnnotationCellule : le paramètre {cel} n’est pas une cellule")
+    rep = None
+    if const.ANNOTATION in cel:
+        rep = cel[const.ANNOTATION]
+    return rep
