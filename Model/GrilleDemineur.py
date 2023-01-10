@@ -222,3 +222,22 @@ def placerMinesGrilleDemineur(grille: list, nb: int, co :tuple) -> None:
         if coTemp != co and getContenuGrilleDemineur(grille, coTemp) != const.ID_MINE:
             setContenuGrilleDemineur(grille, coTemp, const.ID_MINE)
             nbMinePlace += 1
+
+def compterMinesVoisinesGrilleDemineur(grille: list) -> None:
+    """
+    compt les
+    :param grille:
+    :return:
+    """
+    nbLigne = getNbLignesGrilleDemineur(grille)
+    nbCol = getNbColonnesGrilleDemineur(grille)
+    for ligne in range(nbLigne):
+        for col in range(nbCol):
+            co = (ligne, col)
+            if getContenuGrilleDemineur(grille, co) != const.ID_MINE:
+                voisins = getCoordonneeVoisinsGrilleDemineur(grille, co)
+                nbMine = 0
+                for voisin in voisins:
+                    if getContenuGrilleDemineur(grille, voisin) == const.ID_MINE:
+                        nbMine += 1
+                setContenuGrilleDemineur(grille, co, nbMine)
