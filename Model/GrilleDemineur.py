@@ -94,21 +94,18 @@ def getNbColonnesGrilleDemineur(grille: list)->int:
     return nbCol
 
 
-def isCoordonneeCorrect(grille: list, co: tuple)-> bool:
+def isCoordonneeCorrecte(grille: list, co: tuple)-> bool:
     """
     recheche ci les coordonnée sont bien dans la grille
     :param grille: grille du demineur
     :param co: coordonnée recherche dans la grille
     :return: True ci les coordonnée sont dans la grille false sinon
     """
-    if not type_grille_demineur(grille) or type(co) != tuple:
+    if not type_grille_demineur(grille) or not type_coordonnee(co):
         raise TypeError("isCoordonneeCorrecte : un des paramètres n’est pas du bon type.")
-    rep = False
     ligne = getLigneCoordonnee(co)
     col = getColonneCoordonnee(co)
-    if ligne < getNbLignesGrilleDemineur(grille) and ligne >= 0 and col < getNbColonnesGrilleDemineur(grille) and col >= 0:
-        rep = True
-    return rep
+    return ligne < getNbLignesGrilleDemineur(grille) and ligne >= 0 and col < getNbColonnesGrilleDemineur(grille) and col >= 0
 
 def getCelluleGrilleDemineur(grille: list,co:tuple) -> dict:
     """
@@ -117,7 +114,7 @@ def getCelluleGrilleDemineur(grille: list,co:tuple) -> dict:
     :param co: coordonnée recherche dans la grille
     :return: la cellule au coordonnée données
     """
-    if not type_grille_demineur(grille) and not isCoordonneeCorrect(grille,co) and type(co) != tuple:
+    if not type_grille_demineur(grille) and not isCoordonneeCorrecte(grille,co) and not type_coordonnee(co):
         raise TypeError(f"getCelluleGrilleDemineur : un des paramètres n’est pas du bon type.")
     cellule = grille[co[0]][co[1]]
     return cellule
@@ -170,7 +167,38 @@ def contientMineGrilleDemineur(grille: list, co : tuple) -> bool:
     :param co: coordonnée recherche dans la grille
     :return: True si il y a une bombe dans la cellule et false sinon
     """
-    rep = False
-    if getContenuGrilleDemineur(grille,co) == const.ID_MINE:
-        rep = True
-    return rep
+    return getContenuGrilleDemineur(grille,co) == const.ID_MINE
+
+def getCoordonneeVoisinsGrilleDemineur(grille: list, co: tuple) -> list:
+    """
+    cherche les co des voisin de la cos passer en paramètre
+    :param grille: grille du demineur
+    :param co: coordonnée dans la grille
+    :return: la liste des voissin de la co passer en paramètre
+    """
+    if not type_grille_demineur(grille) and not isCoordonneeCorrecte(grille,co):
+        raise TypeError("getCoordonneeVoisinsGrilleDemineur : un des paramètres n’est pas du bon type")
+    if not isCoordonneeCorrecte(grille, co):
+        raise IndexError("getCoordonneeVoisinsGrilleDemineur : la coordonnée n’est pas dans la grille.")
+    lstVoisin = []
+    ligne = getLigneCoordonnee(co)
+    col = getColonneCoordonnee(co)
+    for y in range(-1, 2):
+        coTemp = ((ligne - 1), (col + y))
+        if type_coordonnee(coTemp):
+            if isCoordonneeCorrecte(grille, coTemp):
+                lstVoisin.append(coTemp)
+
+    for y in range(-1, 2, 2):
+        coTemp = (ligne, (col + y))
+        if type_coordonnee(coTemp):
+            if isCoordonneeCorrecte(grille, coTemp):
+                lstVoisin.append(coTemp)
+
+    for y in range(-1, 2):
+        coTemp = ((ligne + 1), (col + y))
+        if type_coordonnee(coTemp):
+            if isCoordonneeCorrecte(grille, coTemp):
+                lstVoisin.append(coTemp)
+    return lstVoisin
+
