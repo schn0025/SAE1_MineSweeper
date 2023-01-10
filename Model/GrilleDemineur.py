@@ -205,6 +205,12 @@ def getCoordonneeVoisinsGrilleDemineur(grille: list, co: tuple) -> list:
     return lstVoisin
 
 def placerMinesGrilleDemineur(grille: list, nb: int, co :tuple) -> None:
+    """
+    place nb mine aleatoirement
+    :param grille: grille du demineur
+    :param nb: nombre de mines a placer
+    :param co: coordonnée d'une cellule dans la grille qui ne doit pas être une mine
+    """
     ligneMax = getNbLignesGrilleDemineur(grille) -1
     colMax = getNbColonnesGrilleDemineur(grille) -1
     if nb < 0 or nb >= ((ligneMax + 1) * (colMax + 1)):
@@ -222,12 +228,12 @@ def placerMinesGrilleDemineur(grille: list, nb: int, co :tuple) -> None:
         if coTemp != co and getContenuGrilleDemineur(grille, coTemp) != const.ID_MINE:
             setContenuGrilleDemineur(grille, coTemp, const.ID_MINE)
             nbMinePlace += 1
+    compterMinesVoisinesGrilleDemineur(grille)
 
 def compterMinesVoisinesGrilleDemineur(grille: list) -> None:
     """
-    compt les
-    :param grille:
-    :return:
+    compt les bombe sur les cases voisinne
+    :param grille: grille du demineur
     """
     nbLigne = getNbLignesGrilleDemineur(grille)
     nbCol = getNbColonnesGrilleDemineur(grille)
