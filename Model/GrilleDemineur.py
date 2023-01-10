@@ -114,9 +114,11 @@ def getCelluleGrilleDemineur(grille: list,co:tuple) -> dict:
     :param co: coordonnée recherche dans la grille
     :return: la cellule au coordonnée données
     """
-    if not type_grille_demineur(grille) and not isCoordonneeCorrecte(grille,co) and not type_coordonnee(co):
+    if not type_grille_demineur(grille) and not isCoordonneeCorrecte(grille, co) and not type_coordonnee(co):
         raise TypeError(f"getCelluleGrilleDemineur : un des paramètres n’est pas du bon type.")
-    cellule = grille[co[0]][co[1]]
+    ligne = getLigneCoordonnee(co)
+    col = getColonneCoordonnee(co)
+    cellule = grille[ligne][col]
     return cellule
 
 def getContenuGrilleDemineur(grille: list, co: tuple)-> int:
@@ -126,7 +128,7 @@ def getContenuGrilleDemineur(grille: list, co: tuple)-> int:
     :param co: coordonnée recherche dans la grille
     :return: le contenus de la cellule au coordonnée passer en paramètre
     """
-    cellule = getCelluleGrilleDemineur(grille,co)
+    cellule = getCelluleGrilleDemineur(grille, co)
     return getContenuCellule(cellule)
 
 def setContenuGrilleDemineur(grille: list, co: tuple, contenu)-> None:
@@ -202,3 +204,21 @@ def getCoordonneeVoisinsGrilleDemineur(grille: list, co: tuple) -> list:
                 lstVoisin.append(coTemp)
     return lstVoisin
 
+def placerMinesGrilleDemineur(grille: list, nb: int, co :tuple) -> None:
+    ligneMax = getNbLignesGrilleDemineur(grille) -1
+    colMax = getNbColonnesGrilleDemineur(grille) -1
+    if nb < 0 or nb >= ((ligneMax + 1) * (colMax + 1)):
+        raise ValueError("placerMinesGrilleDemineur : Nombre de bombes à placer incorrect")
+
+    if not type_coordonnee(co) or not isCoordonneeCorrecte(grille, co):
+        raise IndexError("placerMinesGrilleDemineur : la coordonnée n’est pas dans la grille")
+
+    nbMinePlace = 0
+
+    while nbMinePlace < nb:
+        col = randint(0, colMax)
+        ligne = randint(0, ligneMax)
+        coTemp = (ligne, col)
+        if coTemp != co and getContenuGrilleDemineur(grille, coTemp) != const.ID_MINE:
+            setContenuGrilleDemineur(grille, coTemp, const.ID_MINE)
+            nbMinePlace += 1
