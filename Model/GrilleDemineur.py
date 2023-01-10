@@ -247,3 +247,16 @@ def compterMinesVoisinesGrilleDemineur(grille: list) -> None:
                     if getContenuGrilleDemineur(grille, voisin) == const.ID_MINE:
                         nbMine += 1
                 setContenuGrilleDemineur(grille, co, nbMine)
+
+def getNbMinesGrilleDemineur(grille: list) -> int:
+    if not type_grille_demineur(grille):
+        raise ValueError("getNbMinesGrilleDemineur : le paramètre n’est pas une grille")
+    nbMine = 0
+    nbLigne = getNbLignesGrilleDemineur(grille)
+    nbCol = getNbColonnesGrilleDemineur(grille)
+    for ligne in range(nbLigne):
+        for col in range(nbCol):
+            co = (ligne, col)
+            if getContenuGrilleDemineur(grille, co) == const.ID_MINE:
+                nbMine += 1
+    return nbMine
