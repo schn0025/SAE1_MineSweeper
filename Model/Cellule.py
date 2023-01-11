@@ -3,6 +3,7 @@
 
 from Model.Constantes import *
 
+
 #
 # Modélisation d'une cellule de la grille d'un démineur
 #
@@ -32,7 +33,8 @@ def isContenuCorrect(cont: int) -> bool:
             rep = True
     return rep
 
-def construireCellule(cont: int= 0, visible: bool = False) -> dict:
+
+def construireCellule(cont: int = 0, visible: bool = False) -> dict:
     """
     cette fonction renvois un dictionaire de ce qui compose la cellule
     :param cont : le contenus de la cellule
@@ -43,11 +45,12 @@ def construireCellule(cont: int= 0, visible: bool = False) -> dict:
         raise ValueError(f"construireCellule : le contenu {cont} n’est pas correct")
 
     if type(visible) != bool:
-        raise TypeError( f"construireCellule : le second paramètre {type(visible)} n’est pas un booléen ")
-    cel = {const.CONTENU: cont, const.VISIBLE: visible,const.ANNOTATION:None}
+        raise TypeError(f"construireCellule : le second paramètre {type(visible)} n’est pas un booléen ")
+    cel = {const.CONTENU: cont, const.VISIBLE: visible, const.ANNOTATION: None}
     return cel
 
-def getContenuCellule(dico: dict) ->int:
+
+def getContenuCellule(dico: dict) -> int:
     """
     renvoi le contenu de la cellule
     :param dico: un dico detaillent une cellule
@@ -57,7 +60,8 @@ def getContenuCellule(dico: dict) ->int:
         raise TypeError(f"getContenuCellule : Le paramètre n’est pas une cellule")
     return dico[const.CONTENU]
 
-def isVisibleCellule(dico:dict) ->bool:
+
+def isVisibleCellule(dico: dict) -> bool:
     """
     renvoi la visibiliter de la cellule
     :param dico: un dico detaillent une cellule
@@ -67,7 +71,8 @@ def isVisibleCellule(dico:dict) ->bool:
         raise TypeError(f"isVisibleCellule : Le paramètre n’est pas une cellule")
     return dico[const.VISIBLE]
 
-def setContenuCellule(dico: dict, cont: int)->None:
+
+def setContenuCellule(dico: dict, cont: int) -> None:
     """
     devinie le contenu d'une cellule au conteu passer en parametre
     :param dico: un dico detaillent une cellule
@@ -82,7 +87,8 @@ def setContenuCellule(dico: dict, cont: int)->None:
     dico[const.CONTENU] = cont
     return None
 
-def setVisibleCellule(dico:dict, visible: bool)-> None:
+
+def setVisibleCellule(dico: dict, visible: bool) -> None:
     """
     deffinie la visibiliter d'une celule a True
     :type dico: un dico detaillent une cellule
@@ -94,7 +100,8 @@ def setVisibleCellule(dico:dict, visible: bool)-> None:
     dico[const.VISIBLE] = visible
     return None
 
-def contientMineCellule(dico: dict)->bool:
+
+def contientMineCellule(dico: dict) -> bool:
     """
     renvoi un bool ci la cellule contient une mine ou non
     :param dico: un dico detaillent une cellule
@@ -107,6 +114,7 @@ def contientMineCellule(dico: dict)->bool:
         rep = True
     return rep
 
+
 def isAnnotationCorrecte(annotation: str) -> bool:
     """
     verifie ci le parametre est corecte
@@ -116,10 +124,36 @@ def isAnnotationCorrecte(annotation: str) -> bool:
     lstRep = [None, const.DOUTE, const.FLAG]
     return annotation in lstRep
 
+
 def getAnnotationCellule(cel: dict) -> str:
+    """
+    cherche l'annotation que la cellule contient
+    :param cel: cellule de demineur
+    :return: l'annotation que la cellule contient
+    """
     if not type_cellule(cel):
         raise TypeError(f" getAnnotationCellule : le paramètre {cel} n’est pas une cellule")
+
     rep = None
     if const.ANNOTATION in cel:
         rep = cel[const.ANNOTATION]
     return rep
+
+
+def changeAnnotationCellule(cel: dict) -> None:
+    """
+    change l'annotation d'une cellule
+    :param cel: cel: cellule de demineur
+    """
+    if not type_cellule(cel):
+        raise TypeError("changeAnnotationCellule : le paramètre n’est pas une cellule")
+
+    anotIn = getAnnotationCellule(cel)
+    if anotIn == None:
+        cel[const.ANNOTATION] = const.FLAG
+
+    elif anotIn == const.FLAG:
+        cel[const.ANNOTATION] = const.DOUTE
+
+    elif anotIn == const.DOUTE:
+        cel[const.ANNOTATION] = None
