@@ -311,3 +311,21 @@ def getMinesRestantesGrilleDemineur(grille: list) -> int:
                 nb += 1
 
     return nbMine - nb
+
+def gagneGrilleDemineur(grille: list) -> bool:
+    """
+    regarde ci la partie est finie ne faisent les nombre de case moin le nombre de mine et le comparent au nombre de casse visible
+    :param grille:grille du demineur
+    :return: True ci la partie est fini false sinon
+    """
+    nbMine = getNbMinesGrilleDemineur(grille)
+    nbVisible = 0
+    nbLigne = getNbLignesGrilleDemineur(grille)
+    nbCol = getNbColonnesGrilleDemineur(grille)
+    nbCel = nbLigne * nbCol
+    for ligne in range(nbLigne):
+        for col in range(nbCol):
+            co = (ligne, col)
+            if isVisibleGrilleDemineur(grille, co):
+                nbVisible += 1
+    return (nbCel - nbMine) == nbVisible 
