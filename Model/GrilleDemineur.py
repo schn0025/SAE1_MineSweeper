@@ -315,7 +315,7 @@ def getMinesRestantesGrilleDemineur(grille: list) -> int:
 def gagneGrilleDemineur(grille: list) -> bool:
     """
     regarde ci la partie est finie ne faisent les nombre de case moin le nombre de mine et le comparent au nombre de casse visible
-    :param grille:grille du demineur
+    :param grille: grille du demineur
     :return: True ci la partie est fini false sinon
     """
     nbMine = getNbMinesGrilleDemineur(grille)
@@ -328,4 +328,25 @@ def gagneGrilleDemineur(grille: list) -> bool:
             co = (ligne, col)
             if isVisibleGrilleDemineur(grille, co):
                 nbVisible += 1
-    return (nbCel - nbMine) == nbVisible 
+    return (nbCel - nbMine) == nbVisible
+
+def perduGrilleDemineur(grille)-> bool:
+    """
+    regarde ci la partie est pardu en cherchant ci une mine est visible
+    :param grille: grille du demineur
+    :return: True ci la partie est perdu et False sinon
+    """
+    perdu = False
+    nbLigne = getNbLignesGrilleDemineur(grille)
+    nbCol = getNbColonnesGrilleDemineur(grille)
+    ligne = 0
+    while ligne < nbLigne and not perdu:
+        col = 0
+        while col < nbCol and not perdu:
+            co = (ligne, col)
+            if getContenuGrilleDemineur(grille, co) == const.ID_MINE:
+                if isVisibleGrilleDemineur(grille, co):
+                    perdu = True
+            col += 1
+        ligne += 1
+    return perdu
