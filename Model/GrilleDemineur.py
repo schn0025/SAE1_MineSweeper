@@ -330,7 +330,7 @@ def gagneGrilleDemineur(grille: list) -> bool:
                 nbVisible += 1
     return (nbCel - nbMine) == nbVisible and getMinesRestantesGrilleDemineur(grille) == 0
 
-def perduGrilleDemineur(grille)-> bool:
+def perduGrilleDemineur(grille: list)-> bool:
     """
     regarde ci la partie est pardu en cherchant ci une mine est visible
     :param grille: grille du demineur
@@ -351,7 +351,7 @@ def perduGrilleDemineur(grille)-> bool:
         ligne += 1
     return perdu
 
-def reinitialiserGrilleDemineur(grille) -> None:
+def reinitialiserGrilleDemineur(grille: list) -> None:
     """
     reinitialise les parametre de chaque cellule du demineur
     :param grille: grille du demineur
@@ -364,3 +364,24 @@ def reinitialiserGrilleDemineur(grille) -> None:
             cel = getCelluleGrilleDemineur(grille, co)
             reinitialiserCellule(cel)
     return None
+
+def decouvrirGrilleDemineur(grille: list, co : tuple)-> None:
+    """
+    rand visible les cellule qui n'on pas de bombe au alentoure et qui sont proche de la cellule cliquer
+    :param grille: grille du demineur
+    :param co: coordonnée d'une cellule dans la grille
+    :return: la liste des cellule randue visible
+    """
+    lstDecouv = [co]
+    setVisibleGrilleDemineur(grille, co, True)
+    if getContenuGrilleDemineur(grille, co) == 0:
+        voisins = getCoordonneeVoisinsGrilleDemineur(grille, co)
+        for vois in voisins:
+            if not isVisibleGrilleDemineur(grille,vois):
+                lstDecouv.append(vois)
+                setVisibleGrilleDemineur(grille, vois, True)
+                if getContenuGrilleDemineur(grille, vois) == 0:
+                    lstTemp = decouvrirGrilleDemineur(grille, vois)
+                    for elt in lstTemp:
+                        lstDecouv.append(elt)
+    return lstDecouv
