@@ -143,7 +143,7 @@ def getAnnotationCellule(cel: dict) -> str:
 def changeAnnotationCellule(cel: dict) -> None:
     """
     change l'annotation d'une cellule
-    :param cel: cel: cellule de demineur
+    :param cel: cellule de demineur
     """
     if not type_cellule(cel):
         raise TypeError("changeAnnotationCellule : le paramètre n’est pas une cellule")
@@ -157,3 +157,12 @@ def changeAnnotationCellule(cel: dict) -> None:
 
     elif anotIn == const.DOUTE:
         cel[const.ANNOTATION] = None
+
+def reinitialiserCellule(cel: dict) -> None:
+    """
+    reinitialise la cellule passer en paramétre
+    :param cel: cellule de demineur
+    """
+    cel[const.VISIBLE] = False
+    cel[const.CONTENU] = 0
+    cel[const.ANNOTATION] = None
