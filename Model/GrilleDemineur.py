@@ -293,3 +293,21 @@ def getAnnotationGrilleDemineur(grille: list, co: tuple) -> str:
     cel = getCelluleGrilleDemineur(grille, co)
     anot = getAnnotationCellule(cel)
     return anot
+
+def getMinesRestantesGrilleDemineur(grille: list) -> int:
+    """
+    compt le nombre de mine restante a trouver
+    :param grille: grille du demineur
+    :return: le nombre de mine moins le nombre de drapeau
+    """
+    nbMine = getNbMinesGrilleDemineur(grille)
+    nb = 0
+    nbLigne = getNbLignesGrilleDemineur(grille)
+    nbCol = getNbColonnesGrilleDemineur(grille)
+    for ligne in range(nbLigne):
+        for col in range(nbCol):
+            co = (ligne, col)
+            if getAnnotationGrilleDemineur(grille, co) == const.FLAG:
+                nb += 1
+
+    return nbMine - nb
