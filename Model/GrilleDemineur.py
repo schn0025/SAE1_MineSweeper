@@ -350,3 +350,17 @@ def perduGrilleDemineur(grille)-> bool:
             col += 1
         ligne += 1
     return perdu
+
+def reinitialiserGrilleDemineur(grille) -> None:
+    """
+    reinitialise les parametre de chaque cellule du demineur
+    :param grille: grille du demineur
+    """
+    nbLigne = getNbLignesGrilleDemineur(grille)
+    nbCol = getNbColonnesGrilleDemineur(grille)
+    for ligne in range(nbLigne):
+        for col in range(nbCol):
+            co = (ligne, col)
+            cel = getCelluleGrilleDemineur(grille, co)
+            reinitialiserCellule(cel)
+    return None
