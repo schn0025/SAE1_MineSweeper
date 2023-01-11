@@ -328,7 +328,7 @@ def gagneGrilleDemineur(grille: list) -> bool:
             co = (ligne, col)
             if isVisibleGrilleDemineur(grille, co):
                 nbVisible += 1
-    return (nbCel - nbMine) == nbVisible
+    return (nbCel - nbMine) == nbVisible and getMinesRestantesGrilleDemineur(grille) == 0
 
 def perduGrilleDemineur(grille)-> bool:
     """
