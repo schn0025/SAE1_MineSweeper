@@ -294,6 +294,7 @@ def getAnnotationGrilleDemineur(grille: list, co: tuple) -> str:
     anot = getAnnotationCellule(cel)
     return anot
 
+
 def getMinesRestantesGrilleDemineur(grille: list) -> int:
     """
     compt le nombre de mine restante a trouver
@@ -311,6 +312,7 @@ def getMinesRestantesGrilleDemineur(grille: list) -> int:
                 nb += 1
 
     return nbMine - nb
+
 
 def gagneGrilleDemineur(grille: list) -> bool:
     """
@@ -330,7 +332,8 @@ def gagneGrilleDemineur(grille: list) -> bool:
                 nbVisible += 1
     return (nbCel - nbMine) == nbVisible and getMinesRestantesGrilleDemineur(grille) == 0
 
-def perduGrilleDemineur(grille: list)-> bool:
+
+def perduGrilleDemineur(grille: list) -> bool:
     """
     regarde ci la partie est pardu en cherchant ci une mine est visible
     :param grille: grille du demineur
@@ -351,6 +354,7 @@ def perduGrilleDemineur(grille: list)-> bool:
         ligne += 1
     return perdu
 
+
 def reinitialiserGrilleDemineur(grille: list) -> None:
     """
     reinitialise les parametre de chaque cellule du demineur
@@ -365,7 +369,8 @@ def reinitialiserGrilleDemineur(grille: list) -> None:
             reinitialiserCellule(cel)
     return None
 
-def decouvrirGrilleDemineur(grille: list, co : tuple)-> None:
+
+def decouvrirGrilleDemineur(grille: list, co: tuple) -> None:
     """
     rand visible les cellule qui n'on pas de bombe au alentoure et qui sont proche de la cellule cliquer
     :param grille: grille du demineur
@@ -377,7 +382,7 @@ def decouvrirGrilleDemineur(grille: list, co : tuple)-> None:
     if getContenuGrilleDemineur(grille, co) == 0:
         voisins = getCoordonneeVoisinsGrilleDemineur(grille, co)
         for vois in voisins:
-            if not isVisibleGrilleDemineur(grille,vois):
+            if not isVisibleGrilleDemineur(grille, vois):
                 lstDecouv.append(vois)
                 setVisibleGrilleDemineur(grille, vois, True)
                 if getContenuGrilleDemineur(grille, vois) == 0:
@@ -385,3 +390,29 @@ def decouvrirGrilleDemineur(grille: list, co : tuple)-> None:
                     for elt in lstTemp:
                         lstDecouv.append(elt)
     return lstDecouv
+
+
+def simplifierGrilleDemineur(grille: list, co: tuple) -> set:
+    """
+    regarde ci il y a les meme nombre de drpeaux autoure d'une cellule et decouvre les cellule voisinne ci il y a le bon nombre de drapeau
+    :param grille: grille du demineur
+    :param co: coordonnée d'une cellule dans la grille
+    :return: la liste des cellule rendu visible
+    """
+    ensemble = []
+    if isVisibleGrilleDemineur(grille, co):
+        nbDrap = 0
+        voisins = getCoordonneeVoisinsGrilleDemineur(grille, co)
+        for vois in voisins:
+            if getAnnotationGrilleDemineur(grille, vois) == const.FLAG:
+                nbDrap += 1
+        if nbDrap == getContenuGrilleDemineur(grille, co):
+            for vois in voisins:
+                if not isVisibleGrilleDemineur(grille, vois) and getAnnotationGrilleDemineur(grille,vois) != const.FLAG:
+                    setVisibleGrilleDemineur(grille, vois, True)
+                    ensemble.append(vois)
+                    ensTemp = simplifierGrilleDemineur(grille, vois)
+                    for elt in ensTemp:
+                        ensemble.append(elt)
+    return ensemble
+
