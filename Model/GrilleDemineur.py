@@ -370,7 +370,7 @@ def reinitialiserGrilleDemineur(grille: list) -> None:
     return None
 
 
-def decouvrirGrilleDemineur(grille: list, co: tuple) -> None:
+def decouvrirGrilleDemineur(grille: list, co: tuple) -> list:
     """
     rand visible les cellule qui n'on pas de bombe au alentoure et qui sont proche de la cellule cliquer
     :param grille: grille du demineur
@@ -392,7 +392,7 @@ def decouvrirGrilleDemineur(grille: list, co: tuple) -> None:
     return lstDecouv
 
 
-def simplifierGrilleDemineur(grille: list, co: tuple) -> set:
+def simplifierGrilleDemineur(grille: list, co: tuple) -> list:
     """
     regarde ci il y a les meme nombre de drpeaux autoure d'une cellule et decouvre les cellule voisinne ci il y a le bon nombre de drapeau
     :param grille: grille du demineur
@@ -408,7 +408,8 @@ def simplifierGrilleDemineur(grille: list, co: tuple) -> set:
                 nbDrap += 1
         if nbDrap == getContenuGrilleDemineur(grille, co):
             for vois in voisins:
-                if not isVisibleGrilleDemineur(grille, vois) and getAnnotationGrilleDemineur(grille,vois) != const.FLAG:
+                if not isVisibleGrilleDemineur(grille, vois) and getAnnotationGrilleDemineur(grille,
+                                                                                             vois) != const.FLAG:
                     setVisibleGrilleDemineur(grille, vois, True)
                     ensemble.append(vois)
                     ensTemp = simplifierGrilleDemineur(grille, vois)
@@ -416,3 +417,54 @@ def simplifierGrilleDemineur(grille: list, co: tuple) -> set:
                         ensemble.append(elt)
     return ensemble
 
+
+def ajouterFlagsGrilleDemineur(grille: list, co: tuple) -> list:
+    """
+    ajout un drapos sur les case ou il est evident qu'il y a une mine
+    :param grille: grille du demineur
+    :param co: coordonnée d'une cellule dans la grille
+    :return: la liste des case a l'aquelle on a rajouter un drapeau
+    """
+    lstDrapo = []
+    nbNonVisi = 0
+    voisins = getCoordonneeVoisinsGrilleDemineur(grille, co)
+    for voisin in voisins:
+        if not isVisibleGrilleDemineur(grille, voisin):
+            lstDrapo.append(voisin)
+            nbNonVisi += 1
+
+    if nbNonVisi == getContenuGrilleDemineur(grille, co):
+        for elt in lstDrapo:
+            cel = getCelluleGrilleDemineur(grille, elt)
+            cel[const.ANNOTATION] = const.FLAG
+    return lstDrapo
+
+"""
+def simplifierToutGrilleDemineur(grille: list) -> tuple:
+    coVisible = []
+    coAvecDrapeau = []
+    nbLigne = getNbLignesGrilleDemineur(grille)
+    nbCol = getNbColonnesGrilleDemineur(grille)
+    modif = True
+    #while modif:
+    modif = False
+    lstAdDrap = []
+    lstSetVisi = []
+    for ligne in range(nbLigne):
+        for col in range(nbCol):
+            co = (ligne, col)
+            lstAdDrapTemp = ajouterFlagsGrilleDemineur(grille, co)
+            lstSetVisiTemp = simplifierGrilleDemineur(grille, co)
+            for elt in lstAdDrapTemp:
+                lstAdDrap.append(elt)
+            for elt in lstSetVisiTemp:
+                lstSetVisi.append(elt)
+    if lstAdDrap or lstSetVisi:
+        for elt in lstAdDrap:
+            coAvecDrapeau.append(elt)
+        for elt in lstSetVisi:
+            coVisible.append(elt)
+        modif = True
+
+    return coVisible, coAvecDrapeau
+"""
