@@ -394,11 +394,12 @@ def decouvrirGrilleDemineur(grille: list, co: tuple) -> list:
 
 def simplifierGrilleDemineur(grille: list, co: tuple) -> list:
     """
-    regarde ci il y a les meme nombre de drpeaux autoure d'une cellule et decouvre les cellule voisinne ci il y a le bon nombre de drapeau
-    :param grille: grille du demineur
+    regarde si il y a le même nombre de drapeau autour d'une cellule et il découvre les cellules voisines si il y a le bon nombre de drapeau
+    :param grille: grille du démineur
     :param co: coordonnée d'une cellule dans la grille
-    :return: la liste des cellule rendu visible
+    :return: la liste des cellules rendus visible
     """
+
     ensemble = []
     if isVisibleGrilleDemineur(grille, co):
         nbDrap = 0
@@ -418,12 +419,12 @@ def simplifierGrilleDemineur(grille: list, co: tuple) -> list:
     return ensemble
 
 
-def ajouterFlagsGrilleDemineur(grille: list, co: tuple) -> list:
+def ajouterFlagsGrilleDemineur(grille: list, co: tuple) -> set:
     """
-    ajout un drapos sur les case ou il est evident qu'il y a une mine
-    :param grille: grille du demineur
+    ajout un drapeau sur les cases ou il est évident qu'il y a une mine
+    :param grille: grille du démineur
     :param co: coordonnée d'une cellule dans la grille
-    :return: la liste des case a l'aquelle on a rajouter un drapeau
+    :return: la liste des cases à laquelle on a rajouté un drapeau
     """
     lstDrapo = []
     nbNonVisi = 0
