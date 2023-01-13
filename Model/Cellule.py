@@ -23,9 +23,9 @@ def type_cellule(cell: dict) -> bool:
 
 def isContenuCorrect(cont: int) -> bool:
     """
-    cette fonction verifie ci l'element dans la cellule est corecte ou non
-    :param elt: element contenu dans la cellule
-    :return bool: bool verifant la condition
+    cette fonction verifie si l'élement dans la cellule est correcte ou non
+    :param elt: élement contenu dans la cellule
+    :return bool: bool verifiant la condition
     """
     rep = False
     if type(cont) == int:
@@ -36,10 +36,10 @@ def isContenuCorrect(cont: int) -> bool:
 
 def construireCellule(cont: int = 0, visible: bool = False) -> dict:
     """
-    cette fonction renvois un dictionaire de ce qui compose la cellule
-    :param cont : le contenus de la cellule
-    :param visi : un bool de ci le contenus de la celule est visible ou non
-    :return le dictionaire avec les couple de valeurs
+    cette fonction renvoit un dictionaire de ce qui compose la cellule
+    :param cont : le contenu de la cellule
+    :param visi : un bool de si le contenu de la cellule est visible ou non
+    :return le dictionaire avec les couples de valeurs
     """
     if not isContenuCorrect(cont):
         raise ValueError(f"construireCellule : le contenu {cont} n’est pas correct")
@@ -53,7 +53,7 @@ def construireCellule(cont: int = 0, visible: bool = False) -> dict:
 def getContenuCellule(dico: dict) -> int:
     """
     renvoi le contenu de la cellule
-    :param dico: un dico detaillent une cellule
+    :param dico: un dico détaillant une cellule
     :return: le contenu de la cellule
     """
     if not type_cellule:
@@ -63,9 +63,9 @@ def getContenuCellule(dico: dict) -> int:
 
 def isVisibleCellule(dico: dict) -> bool:
     """
-    renvoi la visibiliter de la cellule
-    :param dico: un dico detaillent une cellule
-    :return: la visibilité de ma celule
+    renvoi la visibilité de la cellule
+    :param dico: un dico détaillant une cellule
+    :return: la visibilité de ma cellule
     """
     if not type_cellule:
         raise TypeError(f"isVisibleCellule : Le paramètre n’est pas une cellule")
@@ -74,12 +74,12 @@ def isVisibleCellule(dico: dict) -> bool:
 
 def setContenuCellule(dico: dict, cont: int) -> None:
     """
-    devinie le contenu d'une cellule au conteu passer en parametre
+    devinie le contenu d'une cellule au contenu passer en paramètre
     :param dico: un dico detaillent une cellule
-    :param cont: u contenu pour la cellule
+    :param cont: un contenu pour la cellule
     """
     if type(cont) != int:
-        raise TypeError(f'setContenuCellule : Le second paramètre n’est pas un entier.')
+        raise TypeError(f'setContenuCellule : Le second paramètre n’est pas un entié.')
     if not isContenuCorrect(cont):
         raise ValueError(f"setContenuCellule : la valeur du contenu {cont} n’est pas correcte.")
     if not type_cellule:
@@ -90,8 +90,8 @@ def setContenuCellule(dico: dict, cont: int) -> None:
 
 def setVisibleCellule(dico: dict, visible: bool) -> None:
     """
-    deffinie la visibiliter d'une celule a True
-    :type dico: un dico detaillent une cellule
+    deffinie la visibilité d'une cellule a True
+    :type dico: un dico détaillant une cellule
     """
     if not type_cellule:
         raise TypeError(f"setVisibleCellule : Le premier paramètre n’est pas une cellule.")
@@ -104,7 +104,7 @@ def setVisibleCellule(dico: dict, visible: bool) -> None:
 def contientMineCellule(dico: dict) -> bool:
     """
     renvoi un bool ci la cellule contient une mine ou non
-    :param dico: un dico detaillent une cellule
+    :param dico: un dico détaillant une cellule
     :return: True ci la cellule contient une mine False ci-non
     """
     if not type_cellule:
@@ -117,9 +117,9 @@ def contientMineCellule(dico: dict) -> bool:
 
 def isAnnotationCorrecte(annotation: str) -> bool:
     """
-    verifie ci le parametre est corecte
+    verifie ci le paramètre est correcte
     :param annotation: annotation a verifier
-    :return: True ci l'annotation est corecte False sinon
+    :return: True ci l'annotation est correcte False sinon
     """
     lstRep = [None, const.DOUTE, const.FLAG]
     return annotation in lstRep
@@ -128,7 +128,7 @@ def isAnnotationCorrecte(annotation: str) -> bool:
 def getAnnotationCellule(cel: dict) -> str:
     """
     cherche l'annotation que la cellule contient
-    :param cel: cellule de demineur
+    :param cel: cellule de démineur
     :return: l'annotation que la cellule contient
     """
     if not type_cellule(cel):
@@ -143,7 +143,7 @@ def getAnnotationCellule(cel: dict) -> str:
 def changeAnnotationCellule(cel: dict) -> None:
     """
     change l'annotation d'une cellule
-    :param cel: cellule de demineur
+    :param cel: cellule de démineur
     """
     if not type_cellule(cel):
         raise TypeError("changeAnnotationCellule : le paramètre n’est pas une cellule")
@@ -160,8 +160,8 @@ def changeAnnotationCellule(cel: dict) -> None:
 
 def reinitialiserCellule(cel: dict) -> None:
     """
-    reinitialise la cellule passer en paramétre
-    :param cel: cellule de demineur
+    reinitialise la cellule passé en paramètre
+    :param cel: cellule de démineur
     """
     cel[const.VISIBLE] = False
     cel[const.CONTENU] = 0
